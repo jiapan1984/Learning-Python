@@ -28,7 +28,7 @@ try:
 		print("Load page error: " + page) 
 
 except urllib.error.URLError as e:
-    print(e.code, ':', e.reason)
+	print(e.code, ':', e.reason)
 
 
 
