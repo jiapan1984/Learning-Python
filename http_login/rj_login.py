@@ -64,7 +64,6 @@ def login_ruijie_ngcf(debug=0):
         print(e.code, ':', e.reason)
         if debug == 1:
             print(red_handler.location)
-
     # save ngcf cookie.
     cookie_filename = 'ngcf.ruijie.net'
     cookie = http.cookiejar.MozillaCookieJar(cookie_filename)
@@ -78,11 +77,42 @@ def login_ruijie_ngcf(debug=0):
 
     cookie.save(ignore_discard=True, ignore_expires=True)
 
+def login_ruijie_migbug(debug=0):
+    cookie_filename = 'sso.ruijie.net'
+    cookie = http.cookiejar.MozillaCookieJar(cookie_filename)
+    cookie.load(cookie_filename, ignore_discard=True, ignore_expires=True)
+    cookie_handler = urllib.request.HTTPCookieProcessor(cookie)
+    get_url = r'https://sso.ruijie.net:8443/cas/login?service=http%3A%2F%2Fmigbug.ruijie.net%2Fbug_switch%2Fservlet%2Fmain'
+    red_handler = RedirectHandler()
+    opener = urllib.request.build_opener(cookie_handler, red_handler)
+    get_request = urllib.request.Request(get_url, headers=headers)
+    try:
+        response = opener.open(get_request)
+        page = response.read()
+    except urllib.error.URLError as e:
+        print(e.code, ':', e.reason)
+        if debug == 1:
+            print(red_handler.location)
+
+    # save ngcf cookie.
+    cookie_filename = 'migbug.ruijie.net'
+    cookie = http.cookiejar.MozillaCookieJar(cookie_filename)
+    cookie_handler = urllib.request.HTTPCookieProcessor(cookie)
+    opener = urllib.request.build_opener(cookie_handler)
+    get_request = urllib.request.Request(red_handler.location, headers=headers)
+    try:
+        response = opener.open(get_request)
+    except error.URLError as e:
+        print(e.code, ':', e.reason)
+    cookie.save(ignore_discard=True, ignore_expires=True)
+
 
 if __name__ == '__main__':
     user = input("user:")
     pwd = input("password:")
     login_ruijie_sso(user, pwd)
-    login_ruijie_ngcf()
+    login_ruijie_ngcf(1)
+    login_ruijie_migbug(1)
+
 
 
