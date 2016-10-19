@@ -30,7 +30,8 @@ def login_ruijie_sso(username, password, debug=0):
     req = urllib.request.Request(sso_url, postdata, headers)
     try:
         response = opener.open(req)
-        # page = response.read().decode()
+        page = response.read()
+        print(page)
     except urllib.error.URLError as e:
         print(e.code, ':', e.reason)
 
@@ -42,10 +43,10 @@ def login_ruijie_sso(username, password, debug=0):
             print('Value=' + item.value)
 
 
-
 class RedirectHandler(urllib.request.HTTPRedirectHandler):
     def http_error_302(self, req, resp, code,msg,hdrs):
         self.location = hdrs['Location']
+
 
 
 def login_ruijie_ngcf(debug=0):
@@ -110,7 +111,7 @@ def login_ruijie_migbug(debug=0):
 if __name__ == '__main__':
     user = input("user:")
     pwd = input("password:")
-    login_ruijie_sso(user, pwd)
+    login_ruijie_sso(user, pwd, 1)
     login_ruijie_ngcf(1)
     login_ruijie_migbug(1)
 
