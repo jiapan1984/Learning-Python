@@ -5,7 +5,7 @@ import json
 user_agent = r'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36'
 headers = {'User-Agent':user_agent, 'Connection':'keep-alive','Referer':'http://migbug.ruijie.net/bug_switch/servlet/query','X-Requested-With':'XMLHttpRequest'}
 
-cookie_filename = 'mibbug.ruijie.net'
+cookie_filename = 'migbug.ruijie.net'
 cookie = http.cookiejar.MozillaCookieJar(cookie_filename)
 cookie.load(cookie_filename, ignore_discard=True, ignore_expires=True)
 # print(cookie)
