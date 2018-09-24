@@ -7,9 +7,11 @@ __email__ = 'jiapan@ruijie.com.cn'
 """
 import urllib.request, urllib.parse, urllib.error
 import http.cookiejar
+import ssl
 import os
 import json
 
+ssl._create_default_https_context = ssl._create_unverified_context
 
 class RJ_Service:
 	user_agent = r'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36'
